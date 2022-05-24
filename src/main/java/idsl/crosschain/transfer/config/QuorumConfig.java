@@ -118,11 +118,11 @@ public class QuorumConfig {
             log.info("destination chain client version: " + clientVersion);
 
             // set up credentials
-            Credentials credentials = Credentials.create("9bc3dd5c1655b543964fb6b531a6b9e139045d268118f94c9da5b38162016db7");
+            Credentials credentials = Credentials.create("6d2d3f7109e625f552561a50c22fa37044349e9a85970de8715c177422c3a93e");
             StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.valueOf(20000000000L), BigInteger.valueOf(6721975L));
             log.info("destination chain account address: " + credentials.getAddress());
 
-            // [2022/05/23 06:39:41] deployed contract address: 0x1ee47e98db45bbcbc4a51b4048bad4a061f0f4c0
+            // [2022/05/23 06:39:41] deployed contract address: 0xd4d17d6478b224ac8b811494005f6593cda30b82
 
             quorumInfo.setQuorum(quorum);
             quorumInfo.setCredentials(credentials);

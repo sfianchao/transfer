@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/api/transfer")
+@RequestMapping("/transfer")
 public class TransferController {
 
     private final TransferService transferService;
@@ -39,7 +39,7 @@ public class TransferController {
         return new ResponseEntity<>(transferService.sendTx(sendRequest), HttpStatus.CREATED);
     }
 
-    @PostMapping("/notify")
+    @PostMapping("/status/notify")
     public ResponseEntity<?> notifyTxState(@RequestBody NotifyRequest notifyRequest) {
         return new ResponseEntity<>(transferService.notifyTxState(notifyRequest), HttpStatus.CREATED);
     }

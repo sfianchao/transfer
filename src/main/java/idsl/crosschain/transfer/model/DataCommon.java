@@ -5,11 +5,15 @@ import lombok.Data;
 @Data
 public class DataCommon {
 
-    public NodeInfo source;
+    private NodeInfo source;
 
-    public NodeInfo destination;
+    private NodeInfo destination;
 
-    public String txType;
+    private String txType;
 
-    public String txContent;
+    private String txContent;
+
+    private String timeStamp;
+
+    private String signature;
 }

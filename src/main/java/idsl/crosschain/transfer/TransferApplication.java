@@ -32,7 +32,7 @@ public class TransferApplication implements CommandLineRunner {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
         try {
-            QuorumInfo quorumInfo = (QuorumInfo) applicationContext.getBean("destinationChainBuilder");
+//            QuorumInfo quorumInfo = (QuorumInfo) applicationContext.getBean("relayChainBuilder");
 
             // deploy contract
 //            Status status = Status.deploy(quorumInfo.getQuorum(), quorumInfo.getCredentials(), quorumInfo.getGasProvider()).send();

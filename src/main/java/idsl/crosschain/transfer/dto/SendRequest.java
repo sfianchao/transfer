@@ -7,13 +7,11 @@ import lombok.Data;
 @Data
 public class SendRequest {
 
-    public String txId;
-
     public String txStatus;
 
     public DataCommon dataCommon;
 
     public RoutingCommon routingCommon;
 
-    public String data;
+    public String proof;
 }

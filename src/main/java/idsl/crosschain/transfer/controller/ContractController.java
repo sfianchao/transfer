@@ -5,10 +5,7 @@ import idsl.crosschain.transfer.util.ContractUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contract")
@@ -34,9 +31,9 @@ public class ContractController {
         return new ResponseEntity<>("load success", HttpStatus.CREATED);
     }
 
-    @PostMapping("/status/set")
-    public ResponseEntity<?> setTxStatus() {
-        return new ResponseEntity<>(contractService.setTxStatus(), HttpStatus.CREATED);
+    @PostMapping("/status/set/{status}")
+    public ResponseEntity<?> setTxStatus(@PathVariable String status) {
+        return new ResponseEntity<>(contractService.setTxStatus(status), HttpStatus.CREATED);
     }
 
     @GetMapping("/status/get")

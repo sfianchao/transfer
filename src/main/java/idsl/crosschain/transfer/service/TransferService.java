@@ -1,11 +1,12 @@
 package idsl.crosschain.transfer.service;
 
+import com.alibaba.fastjson2.JSONObject;
 import idsl.crosschain.transfer.dto.NotifyRequest;
 import idsl.crosschain.transfer.dto.SendRequest;
 
 public interface TransferService {
 
-    String sendTx(SendRequest sendRequest);
+    JSONObject sendTx(SendRequest sendRequest);
 
-    String notifyTxState(NotifyRequest notifyRequest);
+    JSONObject notifyTxState(NotifyRequest notifyRequest);
 }

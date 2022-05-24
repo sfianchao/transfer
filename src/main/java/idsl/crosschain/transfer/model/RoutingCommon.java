@@ -5,11 +5,13 @@ import lombok.Data;
 @Data
 public class RoutingCommon {
 
-    private String txId;
+    private BridgeNode from;
 
-    private NodeInfo fromBridge;
+    private BridgeNode to;
 
-    private NodeInfo toBridge;
+    private BridgeNode relayBridge;
 
-    private NodeInfo relayBridge;
+    private String timeStamp;
+
+    private String signature;
 }

@@ -9,4 +9,6 @@ public class NotifyRequest {
 
     public String txStatus;
 
+    public String proof;
+
 }
