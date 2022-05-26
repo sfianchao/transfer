@@ -1,6 +1,7 @@
 package idsl.crosschain.transfer.service;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import idsl.crosschain.transfer.contract.Status;
 import idsl.crosschain.transfer.dto.NotifyRequest;
 import idsl.crosschain.transfer.dto.SendRequest;
@@ -34,6 +35,9 @@ public class TransferServiceImpl implements TransferService {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public JSONObject sendTx(SendRequest sendRequest) {
 
@@ -41,8 +45,14 @@ public class TransferServiceImpl implements TransferService {
         Status status = Status.load(DESTINATION_CONTRACT_ADDRESS, quorumInfo.getQuorum(), quorumInfo.getCredentials(), quorumInfo.getGasProvider());
         log.info("current contract address: {}", status.getContractAddress());
 
-        Map<String, String> map = new HashMap<>(Map.of("msg", sendRequest.getTxStatus()));
-        simpMessagingTemplate.convertAndSend("/topic/tx", map);
+        try {
+            Map<String, String> map = new HashMap<>(Map.of("msg", objectMapper.writeValueAsString(sendRequest)));
+            simpMessagingTemplate.convertAndSend("/topic/tx", map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+
         return new JSONObject(Map.of("msg", String.format("Transfer Tx[%s] success!", "id")));
     }
 
@@ -53,8 +63,14 @@ public class TransferServiceImpl implements TransferService {
         Status status = Status.load(RELAY_CONTRACT_ADDRESS, quorumInfo.getQuorum(), quorumInfo.getCredentials(), quorumInfo.getGasProvider());
         log.info("current contract address: {}", status.getContractAddress());
 
-        Map<String, String> map = new HashMap<>(Map.of("msg", notifyRequest.getTxStatus()));
-        simpMessagingTemplate.convertAndSend("/topic/tx", map);
+        try {
+            Map<String, String> map = new HashMap<>(Map.of("msg", objectMapper.writeValueAsString(notifyRequest)));
+            simpMessagingTemplate.convertAndSend("/topic/tx", map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+
         return new JSONObject(Map.of("msg", String.format("notify status[%s] success!", notifyRequest.getTxStatus())));
     }
 }

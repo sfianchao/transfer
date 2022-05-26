@@ -1,6 +1,11 @@
 package idsl.crosschain.transfer.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.sql.Timestamp;
 
 @Data
 public class DataCommon {
@@ -13,7 +18,9 @@ public class DataCommon {
 
     private String txContent;
 
-    private String timeStamp;
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Timestamp timeStamp;
 
     private String signature;
 }

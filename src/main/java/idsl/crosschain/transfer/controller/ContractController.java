@@ -36,9 +36,9 @@ public class ContractController {
         return new ResponseEntity<>(contractService.setTxStatus(status), HttpStatus.CREATED);
     }
 
-    @GetMapping("/status/get")
-    public ResponseEntity<?> getTxStatus() {
-        return new ResponseEntity<>(contractService.getTxStatus(), HttpStatus.OK);
+    @GetMapping("/status/get/{chainName}")
+    public ResponseEntity<?> getTxStatus(@PathVariable String chainName) {
+        return new ResponseEntity<>(contractService.getTxStatus(chainName), HttpStatus.OK);
     }
 
 }

@@ -21,6 +21,17 @@ public class StatusContractUtil extends ContractUtil {
 
     }
 
+    @Override
+    public JSONObject deploy() {
+        return null;
+    }
+
+    @Override
+    public JSONObject load() {
+        return null;
+    }
+
+
     public JSONObject setTxStatus(String chainBuilder, String contractAddress, TxStatus txStatus) {
 
         JSONObject jsonObject = new JSONObject();
@@ -31,10 +42,10 @@ public class StatusContractUtil extends ContractUtil {
 
         try {
             if (txStatus.equals(TxStatus.prepare)) {
-                status.setStatusToPrepare().send();
+                status.setStatusToPrepare("A").send();
                 jsonObject.put("msg", String.format("set status[%s] success!", txStatus.toString()));
             } else if (txStatus.equals(TxStatus.commit)) {
-                status.setStatusToCommit().send();
+                status.setStatusToCommit("A").send();
                 jsonObject.put("msg", String.format("set status[%s] success!", txStatus.toString()));
             } else {
                 log.info("tx status error!");
@@ -48,7 +59,7 @@ public class StatusContractUtil extends ContractUtil {
         return jsonObject;
     }
 
-    public JSONObject getTxStatus(String chainBuilder, String contractAddress) {
+    public JSONObject getTxStatus(String chainBuilder, String contractAddress, String chainName) {
 
         String currentStatus = null;
 
@@ -57,7 +68,7 @@ public class StatusContractUtil extends ContractUtil {
         log.info("current contract address: {}", status.getContractAddress());
 
         try {
-            currentStatus = status.getCurrentStatus().send();
+            currentStatus = status.getCurrentStatus(chainName).send();
             log.info("current status: {}", currentStatus);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -65,5 +76,26 @@ public class StatusContractUtil extends ContractUtil {
         }
 
         return new JSONObject(Map.of("currentStatus", currentStatus != null ? currentStatus : "unknown"));
+    }
+
+    public JSONObject checkTxStatus(String chainBuilder, String contractAddress) {
+
+        JSONObject jsonObject = new JSONObject();
+
+        QuorumInfo quorumInfo = (QuorumInfo) applicationContext.getBean(chainBuilder);
+        Status status = Status.load(contractAddress, quorumInfo.getQuorum(), quorumInfo.getCredentials(), quorumInfo.getGasProvider());
+        log.info("current contract address: {}", status.getContractAddress());
+
+        try {
+            status.checkTxStatus().send();
+            log.info("check tx status success!");
+            jsonObject.put("msg", "check tx status success!");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            jsonObject.put("msg", "status error!");
+        }
+
+        return jsonObject;
     }
 }

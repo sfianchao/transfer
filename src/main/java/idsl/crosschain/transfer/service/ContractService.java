@@ -6,5 +6,5 @@ public interface ContractService {
 
     JSONObject setTxStatus(String string);
 
-    JSONObject getTxStatus();
+    JSONObject getTxStatus(String chainName);
 }

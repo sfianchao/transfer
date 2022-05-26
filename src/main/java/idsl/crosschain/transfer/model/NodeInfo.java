@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class NodeInfo {
 
-    private String nodeId;
+    private String nodeId = "NULL";
 
-    private String chainId;
+    private String chainId = "NULL";
 }

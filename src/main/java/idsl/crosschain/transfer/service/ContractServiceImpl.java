@@ -2,6 +2,7 @@ package idsl.crosschain.transfer.service;
 
 import com.alibaba.fastjson2.JSONObject;
 import idsl.crosschain.transfer.contract.TxStatus;
+import idsl.crosschain.transfer.util.ContractUtil;
 import idsl.crosschain.transfer.util.StatusContractUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,22 +28,26 @@ public class ContractServiceImpl implements ContractService {
     private String DESTINATION_CONTRACT_ADDRESS;
 
     private final ApplicationContext applicationContext;
+
+    private final ContractUtil contractUtil;
     private final StatusContractUtil statusContractUtil;
 
     @Autowired
     public ContractServiceImpl(ApplicationContext applicationContext,
+                               ContractUtil contractUtil,
                                StatusContractUtil statusContractUtil) {
         this.applicationContext = applicationContext;
+        this.contractUtil = contractUtil;
         this.statusContractUtil = statusContractUtil;
     }
 
     @Override
     public JSONObject setTxStatus(String status) {
-        return statusContractUtil.setTxStatus("destinationChainBuilder", DESTINATION_CONTRACT_ADDRESS, TxStatus.valueOf(status));
+        return statusContractUtil.setTxStatus("relayChainBuilder", RELAY_CONTRACT_ADDRESS, TxStatus.valueOf(status));
     }
 
     @Override
-    public JSONObject getTxStatus() {
-        return statusContractUtil.getTxStatus("destinationChainBuilder", DESTINATION_CONTRACT_ADDRESS);
+    public JSONObject getTxStatus(String chainName) {
+        return statusContractUtil.getTxStatus("relayChainBuilder", RELAY_CONTRACT_ADDRESS, chainName);
     }
 }

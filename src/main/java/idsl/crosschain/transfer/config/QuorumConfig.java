@@ -64,8 +64,6 @@ public class QuorumConfig {
             StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.ZERO, DefaultGasProvider.GAS_LIMIT);
             log.info("source chain account address: " + credentials.getAddress());
 
-            // [2022/05/22 23:08:47] deployed contract address: 0x441245cdb936628d0a0b9f9398dd48656646b539
-
             quorumInfo.setQuorum(quorum);
             quorumInfo.setCredentials(credentials);
             quorumInfo.setGasProvider(gasProvider);
@@ -90,9 +88,11 @@ public class QuorumConfig {
             log.info("relay chain client version: " + clientVersion);
 
             // set up credentials
-            Credentials credentials = Credentials.create("a7c04cf56f4b4d08a5728b94419382a7bc3dbf108e52fada2ff655479befe2f3");
+            Credentials credentials = Credentials.create("c6d9fdfa45dcf9ba7522c56c9b7d65d039f2a1cc997342f616995ae2c125878d");
             StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.valueOf(20000000000L), BigInteger.valueOf(6721975L));
             log.info("relay chain account address: " + credentials.getAddress());
+
+            // [2022/05/26 07:13:24] deployed contract address: 0x8f2a4481aba0e2c888d5c423c54500b482b251d9
 
             quorumInfo.setQuorum(quorum);
             quorumInfo.setCredentials(credentials);
@@ -122,7 +122,7 @@ public class QuorumConfig {
             StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.valueOf(20000000000L), BigInteger.valueOf(6721975L));
             log.info("destination chain account address: " + credentials.getAddress());
 
-            // [2022/05/23 06:39:41] deployed contract address: 0xd4d17d6478b224ac8b811494005f6593cda30b82
+            // [2022/05/26 10:10:33] deployed contract address: 0x35d50a57b9fb47ab568f999473a72d9223ed005b
 
             quorumInfo.setQuorum(quorum);
             quorumInfo.setCredentials(credentials);

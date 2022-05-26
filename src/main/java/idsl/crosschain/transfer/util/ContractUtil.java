@@ -1,5 +1,6 @@
 package idsl.crosschain.transfer.util;
 
+import com.alibaba.fastjson2.JSONObject;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-public class ContractUtil {
+public abstract class ContractUtil {
 
     @Value("${contract.address.source}")
     public String SOURCE_CONTRACT_ADDRESS;
@@ -22,12 +23,8 @@ public class ContractUtil {
     @Autowired
     public ApplicationContext applicationContext;
 
-    public void deploy() {
+    public abstract JSONObject deploy();
 
-    }
-
-    public void laod() {
-
-    }
+    public abstract JSONObject load();
 
 }

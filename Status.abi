@@ -14,11 +14,37 @@
 				"type": "string"
 			}
 		],
+		"name": "checkStatus",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "status",
+				"type": "string"
+			}
+		],
 		"name": "setStatus",
 		"type": "event"
 	},
 	{
 		"inputs": [],
+		"name": "checkTxStatus",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_chainName",
+				"type": "string"
+			}
+		],
 		"name": "getCurrentStatus",
 		"outputs": [
 			{
@@ -31,14 +57,26 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_chainName",
+				"type": "string"
+			}
+		],
 		"name": "setStatusToCommit",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_chainName",
+				"type": "string"
+			}
+		],
 		"name": "setStatusToPrepare",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -46,7 +84,33 @@
 	},
 	{
 		"inputs": [],
-		"name": "status",
+		"name": "statusA",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "statusB",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "statusRelay",
 		"outputs": [
 			{
 				"internalType": "string",
