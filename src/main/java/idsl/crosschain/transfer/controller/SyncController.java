@@ -19,7 +19,7 @@ public class SyncController {
         return new ResponseEntity<>(syncService.checkTxStatus(), HttpStatus.CREATED);
     }
 
-    @GetMapping("/status/get/{chainName}")
+    @GetMapping("/relay/status/{chainName}")
     public ResponseEntity<?> getTxStatus(@PathVariable String chainName) {
         return new ResponseEntity<>(syncService.getTxStatus(chainName), HttpStatus.OK);
     }

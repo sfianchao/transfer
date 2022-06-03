@@ -1,6 +1,6 @@
 package idsl.crosschain.transfer.controller;
 
-import idsl.crosschain.transfer.service.FormatService;
+import idsl.crosschain.transfer.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/format")
-public class FormatController {
+@RequestMapping("/package")
+public class PackageController {
 
     @Autowired
-    private FormatService formatService;
+    private PackageService packageService;
 
-    @GetMapping("/data-common")
+    @GetMapping("/data-common/format")
     public ResponseEntity<?> getDataCommonFormat() {
-        return new ResponseEntity<>(formatService.getDataCommonFormat(), HttpStatus.OK);
+        return new ResponseEntity<>(packageService.getDataCommonFormat(), HttpStatus.OK);
     }
 }

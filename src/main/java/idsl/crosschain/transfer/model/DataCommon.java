@@ -18,9 +18,9 @@ public class DataCommon {
 
     private String txContent;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
-    private Timestamp timeStamp;
+    private String timeStamp;
 
     private String signature;
 }
+
+

@@ -42,12 +42,60 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public JSONObject setTxStatus(String status) {
-        return statusContractUtil.setTxStatus("relayChainBuilder", RELAY_CONTRACT_ADDRESS, TxStatus.valueOf(status));
+    public JSONObject setTxStatus(String chainName, String status) {
+        String chainBuilder = "quorumBuilder";
+        String contractAddress = RELAY_CONTRACT_ADDRESS;
+        try {
+            JSONObject jsonObject = chainBuilderSelector(chainName);
+            if (jsonObject != null) {
+                chainBuilder = jsonObject.getString("chainBuilder");
+                contractAddress = jsonObject.getString("contractAddress");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+        log.info("[{}] contract address: {}", chainBuilder, contractAddress);
+        return statusContractUtil.setTxStatus(chainBuilder, contractAddress, chainName, TxStatus.valueOf(status));
     }
 
     @Override
     public JSONObject getTxStatus(String chainName) {
-        return statusContractUtil.getTxStatus("relayChainBuilder", RELAY_CONTRACT_ADDRESS, chainName);
+        String chainBuilder = "quorumBuilder";
+        String contractAddress = RELAY_CONTRACT_ADDRESS;
+        try {
+            JSONObject jsonObject = chainBuilderSelector(chainName);
+            if (jsonObject != null) {
+                chainBuilder = jsonObject.getString("chainBuilder");
+                contractAddress = jsonObject.getString("contractAddress");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+        log.info("[{}] contract address: {}", chainBuilder, contractAddress);
+        return statusContractUtil.getTxStatus(chainBuilder, contractAddress, chainName);
+    }
+
+    private JSONObject chainBuilderSelector(String chainName) {
+
+        JSONObject jsonObject = new JSONObject();
+        if (chainName.equalsIgnoreCase("A")) {
+            jsonObject.put("chainBuilder", "sourceChainBuilder");
+            jsonObject.put("contractAddress", SOURCE_CONTRACT_ADDRESS);
+            return jsonObject;
+        } else if (chainName.equalsIgnoreCase("B")) {
+            jsonObject.put("chainBuilder", "destinationChainBuilder");
+            jsonObject.put("contractAddress", DESTINATION_CONTRACT_ADDRESS);
+            return jsonObject;
+        } else if (chainName.equalsIgnoreCase("Relay")) {
+            jsonObject.put("chainBuilder", "relayChainBuilder");
+            jsonObject.put("contractAddress", RELAY_CONTRACT_ADDRESS);
+            return jsonObject;
+        } else {
+            jsonObject.put("chainBuilder", "quorumBuilder");
+            jsonObject.put("contractAddress", RELAY_CONTRACT_ADDRESS);
+            return jsonObject;
+        }
     }
 }

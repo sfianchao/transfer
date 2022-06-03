@@ -41,7 +41,7 @@ public class TransferController {
 
     @PostMapping("/status/notify")
     public ResponseEntity<?> notifyTxState(@RequestBody NotifyRequest notifyRequest) {
-        return new ResponseEntity<>(transferService.notifyTxState(notifyRequest), HttpStatus.CREATED);
+        return new ResponseEntity<>(transferService.notifyTxStatus(notifyRequest), HttpStatus.CREATED);
     }
 
 

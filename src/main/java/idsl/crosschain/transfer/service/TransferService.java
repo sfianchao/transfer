@@ -8,5 +8,5 @@ public interface TransferService {
 
     JSONObject sendTx(SendRequest sendRequest);
 
-    JSONObject notifyTxState(NotifyRequest notifyRequest);
+    JSONObject notifyTxStatus(NotifyRequest notifyRequest);
 }

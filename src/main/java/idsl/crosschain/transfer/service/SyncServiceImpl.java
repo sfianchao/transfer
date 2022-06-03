@@ -26,6 +26,8 @@ public class SyncServiceImpl implements SyncService {
 
     @Override
     public JSONObject checkTxStatus() {
+
+        // checkTxStatys
         return statusContractUtil.checkTxStatus("relayChainBuilder", RELAY_CONTRACT_ADDRESS);
     }
 

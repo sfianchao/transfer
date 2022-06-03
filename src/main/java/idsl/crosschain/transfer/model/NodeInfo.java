@@ -7,5 +7,5 @@ public class NodeInfo {
 
     private String nodeId = "NULL";
 
-    private String chainId = "NULL";
+    private String chainName = "NULL";
 }

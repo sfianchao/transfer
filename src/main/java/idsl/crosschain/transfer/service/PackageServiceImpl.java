@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class FormatServiceImpl implements FormatService {
+public class PackageServiceImpl implements PackageService {
 
     @Override
     public JSONObject getDataCommonFormat() {
@@ -19,7 +19,7 @@ public class FormatServiceImpl implements FormatService {
         DataCommon dataCommon = new DataCommon();
         NodeInfo nodeInfo = new NodeInfo();
         nodeInfo.setNodeId("null");
-        nodeInfo.setChainId("null");
+        nodeInfo.setChainName("null");
         dataCommon.setSource(nodeInfo);
         dataCommon.setDestination(nodeInfo);
 

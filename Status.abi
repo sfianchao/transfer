@@ -38,6 +38,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "dataCommonFormat",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "string",
