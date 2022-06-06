@@ -18,7 +18,7 @@ public class TxContentUtil {
     }
 
     public JSONObject getResTxContent(DataCommon dataCommon, RoutingCommon routingCommon) {
-        String res = routingCommon.getTo().getIp() + "/" + dataCommon.getTxContent();
+        String res = routingCommon.getTo().getIp() + dataCommon.getTxContent();
         log.info("tx content response: {}", res);
         return new JSONObject(Map.of("msg", res));
     }

@@ -80,22 +80,20 @@ public class ContractServiceImpl implements ContractService {
     private JSONObject chainBuilderSelector(String chainName) {
 
         JSONObject jsonObject = new JSONObject();
-        if (chainName.equalsIgnoreCase("A")) {
+        if (chainName.equalsIgnoreCase("src")) {
             jsonObject.put("chainBuilder", "sourceChainBuilder");
             jsonObject.put("contractAddress", SOURCE_CONTRACT_ADDRESS);
             return jsonObject;
-        } else if (chainName.equalsIgnoreCase("B")) {
+        } else if (chainName.equalsIgnoreCase("dest")) {
             jsonObject.put("chainBuilder", "destinationChainBuilder");
             jsonObject.put("contractAddress", DESTINATION_CONTRACT_ADDRESS);
             return jsonObject;
-        } else if (chainName.equalsIgnoreCase("Relay")) {
+        } else if (chainName.equalsIgnoreCase("relay")) {
             jsonObject.put("chainBuilder", "relayChainBuilder");
             jsonObject.put("contractAddress", RELAY_CONTRACT_ADDRESS);
             return jsonObject;
         } else {
-            jsonObject.put("chainBuilder", "quorumBuilder");
-            jsonObject.put("contractAddress", RELAY_CONTRACT_ADDRESS);
-            return jsonObject;
+            return null;
         }
     }
 }

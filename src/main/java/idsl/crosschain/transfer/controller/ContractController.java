@@ -21,16 +21,6 @@ public class ContractController {
         this.contractUtil = contractUtil;
     }
 
-    @PostMapping("/deploy")
-    public ResponseEntity<?> deployContract() {
-        return new ResponseEntity<>("deploy success", HttpStatus.CREATED);
-    }
-
-    @PostMapping("/load")
-    public ResponseEntity<?> loadContract() {
-        return new ResponseEntity<>("load success", HttpStatus.CREATED);
-    }
-
     @PostMapping("/status/set/{chainName}/{status}")
     public ResponseEntity<?> setTxStatus(@PathVariable String chainName, @PathVariable String status) {
         return new ResponseEntity<>(contractService.setTxStatus(chainName, status), HttpStatus.CREATED);
