@@ -1,6 +1,5 @@
 package idsl.crosschain.transfer.controller;
 
-import idsl.crosschain.transfer.dto.NotifyRequest;
 import idsl.crosschain.transfer.service.SyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

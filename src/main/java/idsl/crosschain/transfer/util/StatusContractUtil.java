@@ -14,7 +14,6 @@ import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.tx.gas.StaticGasProvider;
 
 import java.math.BigInteger;
-import java.util.Map;
 
 @Slf4j
 @Data
@@ -45,16 +44,16 @@ public class StatusContractUtil extends ContractUtil {
         quorumInfo.setGasProvider(new StaticGasProvider(BigInteger.ZERO, DefaultGasProvider.GAS_LIMIT));
 
         TransactionManager transactionManager = new RawTransactionManager(
-                quorumInfo.getQuorum(), quorumInfo.getCredentials(), 10);
+                quorumInfo.getQuorum(), quorumInfo.getCredentials(), chainId);
         Status status = Status.load(contractAddress, quorumInfo.getQuorum(), transactionManager, quorumInfo.getGasProvider());
         log.info("current contract address: {}", status.getContractAddress());
 
         try {
             if (txStatus.equals(TxStatus.prepare)) {
-                status.setStatusToPrepare(chainName).send();
+                status.setStatusToPrepare("txId", chainName).send();
                 jsonObject.put("msg", String.format("set status[%s] success!", txStatus));
             } else if (txStatus.equals(TxStatus.commit)) {
-                status.setStatusToCommit(chainName).send();
+                status.setStatusToCommit("txId", chainName).send();
                 jsonObject.put("msg", String.format("set status[%s] success!", txStatus));
             } else {
                 log.info("tx status error!");
@@ -76,7 +75,7 @@ public class StatusContractUtil extends ContractUtil {
         quorumInfo.setGasProvider(new StaticGasProvider(BigInteger.ZERO, DefaultGasProvider.GAS_LIMIT));
 
         TransactionManager transactionManager = new RawTransactionManager(
-                quorumInfo.getQuorum(), quorumInfo.getCredentials(), 10);
+                quorumInfo.getQuorum(), quorumInfo.getCredentials(), chainId);
         Status status = Status.load(contractAddress, quorumInfo.getQuorum(), transactionManager, quorumInfo.getGasProvider());
         log.info("[{}] contract address: {}", chainBuilder, status.getContractAddress());
 
@@ -103,12 +102,12 @@ public class StatusContractUtil extends ContractUtil {
         quorumInfo.setGasProvider(new StaticGasProvider(BigInteger.ZERO, DefaultGasProvider.GAS_LIMIT));
 
         TransactionManager transactionManager = new RawTransactionManager(
-                quorumInfo.getQuorum(), quorumInfo.getCredentials(), 10);
+                quorumInfo.getQuorum(), quorumInfo.getCredentials(), chainId);
         Status status = Status.load(contractAddress, quorumInfo.getQuorum(), transactionManager, quorumInfo.getGasProvider());
         log.info("[{}] contract address: {}", chainBuilder, status.getContractAddress());
 
         try {
-            status.checkTxStatus().send();
+            status.checkTxStatus("txId").send();
             log.info("check tx status success!");
             jsonObject.put("msg", "check tx status success!");
         } catch (Exception e) {

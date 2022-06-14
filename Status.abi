@@ -31,7 +31,13 @@
 		"type": "event"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_txId",
+				"type": "string"
+			}
+		],
 		"name": "checkTxStatus",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -40,6 +46,19 @@
 	{
 		"inputs": [],
 		"name": "dataCommonFormat",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "destStatus",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -70,7 +89,32 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "initTxStatus",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "relayStatus",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_txId",
+				"type": "string"
+			},
 			{
 				"internalType": "string",
 				"name": "_chainName",
@@ -86,6 +130,11 @@
 		"inputs": [
 			{
 				"internalType": "string",
+				"name": "_txId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
 				"name": "_chainName",
 				"type": "string"
 			}
@@ -97,7 +146,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "statusA",
+		"name": "srcStatus",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -110,20 +159,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "statusB",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "statusRelay",
+		"name": "txId",
 		"outputs": [
 			{
 				"internalType": "string",
