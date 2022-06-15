@@ -33,6 +33,14 @@ public class TransferServiceImpl implements TransferService {
     @Value("${contract.address.destination}")
     private String DESTINATION_CONTRACT_ADDRESS;
 
+    private String deployServicePort = "9191";
+    private String routingServicePort = "9292";
+    private String transferServicePort = "9393";
+
+    private String srcIDSLInternalIp = "http://192.168.66.73";
+    private String relayIDSLInternalIp = "http://192.168.66.74";
+    private String destIDSLInternalIp = "http://192.168.66.75";
+
     @Autowired
     private StatusContractUtil statusContractUtil;
 
@@ -65,13 +73,13 @@ public class TransferServiceImpl implements TransferService {
         webSocketBroadcast(String.format("Transfer Tx[%s] success!", "TxId"));
 
         // set dest tx status to "prepare"
-        String dest_tx_url = "http://localhost:9393/contract/status/set/" + destChainName + "/" + TxStatus.prepare;
+        String dest_tx_url = srcIDSLInternalIp + ":" + transferServicePort + "/contract/status/set/" + destChainName + "/" + TxStatus.prepare;
         JSONObject jsonObject = restTemplate.postForObject(dest_tx_url, null, JSONObject.class);
         log.info("dest tx status: {}", jsonObject.getString("msg"));
 
         // notify status to relay chain
         NotifyRequest notifyRequest = new NotifyRequest("txId", destChainName, TxStatus.prepare.toString(), "proof");
-        String notify_relay_url = "http://localhost:9393/transfer/status/notify";
+        String notify_relay_url = srcIDSLInternalIp + ":" + transferServicePort + "/transfer/status/notify";
         JSONObject relayTxStatus = restTemplate.postForObject(notify_relay_url, notifyRequest, JSONObject.class);
         log.info("[relay] {} tx status: {}", destChainName, relayTxStatus.getString("msg"));
 
