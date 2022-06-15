@@ -41,6 +41,10 @@ public class TransferServiceImpl implements TransferService {
     private String relayIDSLInternalIp = "http://192.168.66.74";
     private String destIDSLInternalIp = "http://192.168.66.75";
 
+    private String srcIp = "http://140.118.9.225";
+    private String relayIp = "http://140.118.9.226";
+    private String destIp = "http://140.118.9.227";
+
     @Autowired
     private StatusContractUtil statusContractUtil;
 
