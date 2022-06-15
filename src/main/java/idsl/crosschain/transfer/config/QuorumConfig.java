@@ -266,8 +266,8 @@ public class QuorumConfig {
             log.info("[src chain] client version: " + clientVersion);
 
             // set up credentials
-            Credentials credentials = WalletUtils.loadCredentials("node1", new File("./wallets/wallet1"));
-            StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.ZERO, DefaultGasProvider.GAS_LIMIT);
+            Credentials credentials = Credentials.create("812d049c2ebb6678173680b6b77c1e79a3522709a2c9a5c051f6a3364e4b3698");
+            StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.valueOf(20000000000L), BigInteger.valueOf(6721975L));
             log.info("[src chain] account address: " + credentials.getAddress());
 
             quorumInfo.setQuorum(quorum);
