@@ -89,9 +89,12 @@ public class TransferServiceImpl implements TransferService {
         JSONObject jsonObject = statusContractUtil.setTxStatus("relayChainBuilder", RELAY_CONTRACT_ADDRESS, notifyRequest.getChainName(), TxStatus.valueOf(notifyRequest.getTxStatus()));
 
         // broadcast tx notify msg to ws
-        webSocketBroadcast(String.format("Notify Tx[%s] %s status[%s] success!", notifyRequest.getTxId(), notifyRequest.getChainName(), notifyRequest.getTxStatus()));
+        String msg = String.format("Notify Tx[%s] %s status[%s] success!", notifyRequest.getTxId(), notifyRequest.getChainName(), notifyRequest.getTxStatus());
+        webSocketBroadcast(msg);
 
-        return new JSONObject(Map.of("msg", String.format("Notify Tx[%s] %s status[%s] success!", notifyRequest.getTxId(), notifyRequest.getChainName(), notifyRequest.getTxStatus())));
+        JSONObject res = new JSONObject();
+        jsonObject.put("msg", msg);
+        return res;
     }
 
     private JSONObject chainBuilderSelector(String chainName) {
@@ -116,8 +119,10 @@ public class TransferServiceImpl implements TransferService {
 
     private void webSocketBroadcast(String webSocketMsg) {
         try {
-            Map<String, String> map = new HashMap<>(Map.of("msg", webSocketMsg));
-            simpMessagingTemplate.convertAndSend("/topic/tx", map);
+            Map<String, String> msg = new HashMap<>();
+            msg.put("msg", webSocketMsg);
+//            Map<String, String> map = new HashMap<>(Map.of("msg", webSocketMsg));
+            simpMessagingTemplate.convertAndSend("/topic/tx", msg);
             log.info("broadcast ws msg: {}", webSocketMsg);
         } catch (Exception e) {
             e.printStackTrace();

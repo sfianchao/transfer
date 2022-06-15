@@ -1,5 +1,6 @@
 package idsl.crosschain.transfer;
 
+import idsl.crosschain.transfer.config.QuorumConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -8,13 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
 //@SpringBootApplication
 @SpringBootApplication(exclude = {KafkaAutoConfiguration.class, DataSourceAutoConfiguration.class})
-//@ComponentScan(excludeFilters  = {@ComponentScan.Filter(
+//@ComponentScan(excludeFilters = {@ComponentScan.Filter(
 //        type = FilterType.ASSIGNABLE_TYPE, classes = {QuorumConfig.class})})
 public class TransferApplication implements CommandLineRunner {
 

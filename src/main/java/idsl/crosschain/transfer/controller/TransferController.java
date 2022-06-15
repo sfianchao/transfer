@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/transfer")
 public class TransferController {
@@ -31,7 +29,9 @@ public class TransferController {
     @MessageMapping("/service")
     @SendTo("/topic/tx")
     public JSONObject ws(@Payload String string) throws Exception {
-        return new JSONObject(Map.of("msg", string));
+        JSONObject res = new JSONObject();
+        res.put("msg", string);
+        return res;
     }
 
     @PostMapping("/send")
@@ -43,6 +43,5 @@ public class TransferController {
     public ResponseEntity<?> notifyTxState(@RequestBody NotifyRequest notifyRequest) {
         return new ResponseEntity<>(transferService.notifyTxStatus(notifyRequest), HttpStatus.CREATED);
     }
-
 
 }

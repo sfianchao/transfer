@@ -7,8 +7,6 @@ import idsl.crosschain.transfer.model.NodeInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-
 @Slf4j
 @Service
 public class PackageServiceImpl implements PackageService {
@@ -32,6 +30,8 @@ public class PackageServiceImpl implements PackageService {
             log.error(e.getMessage());
         }
 
-        return new JSONObject(Map.of("msg", jsonStr != null ? jsonStr : "unknown"));
+        JSONObject res = new JSONObject();
+        res.put("msg", jsonStr != null ? jsonStr : "unknown");
+        return res;
     }
 }
