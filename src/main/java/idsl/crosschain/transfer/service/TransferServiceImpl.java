@@ -33,17 +33,19 @@ public class TransferServiceImpl implements TransferService {
     @Value("${contract.address.destination}")
     private String DESTINATION_CONTRACT_ADDRESS;
 
-    private String deployServicePort = "9191";
-    private String routingServicePort = "9292";
-    private String transferServicePort = "9393";
+    @Value("${chain.service.port.deploy}")
+    private String deployServicePort;
+    @Value("${chain.service.port.routing}")
+    private String routingServicePort;
+    @Value("${chain.service.port.transfer}")
+    private String transferServicePort;
 
-    private String srcIDSLInternalIp = "http://192.168.66.73";
-    private String relayIDSLInternalIp = "http://192.168.66.74";
-    private String destIDSLInternalIp = "http://192.168.66.75";
-
-    private String srcIp = "http://140.118.9.225";
-    private String relayIp = "http://140.118.9.226";
-    private String destIp = "http://140.118.9.227";
+    @Value("${chain.src.ip}")
+    private String srcIp;
+    @Value("${chain.relay.ip}")
+    private String relayIp;
+    @Value("${chain.dest.ip}")
+    private String destIp;
 
     @Autowired
     private StatusContractUtil statusContractUtil;
