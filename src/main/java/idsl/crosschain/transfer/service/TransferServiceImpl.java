@@ -81,13 +81,13 @@ public class TransferServiceImpl implements TransferService {
         // set dest tx status to "prepare"
         String dest_tx_url = srcIp + ":" + transferServicePort + "/contract/status/set/" + destChainName + "/" + TxStatus.prepare;
         JSONObject jsonObject = restTemplate.postForObject(dest_tx_url, null, JSONObject.class);
-        log.info("dest tx status: {}", jsonObject.getString("msg"));
+        log.info("[{}] dest tx status: {}", destChainName, jsonObject.getString("msg"));
 
-        // notify status to relay chain
+        // notify tx status to relay chain
         NotifyRequest notifyRequest = new NotifyRequest("txId", destChainName, TxStatus.prepare.toString(), "proof");
         String notify_relay_url = srcIp + ":" + transferServicePort + "/transfer/status/notify";
         JSONObject relayTxStatus = restTemplate.postForObject(notify_relay_url, notifyRequest, JSONObject.class);
-        log.info("[relay] {} tx status: {}", destChainName, relayTxStatus.getString("msg"));
+        log.info("[relay] Notify tx status: {}", relayTxStatus.getString("msg"));
 
         return txContentUtil.getResTxContent(sendRequest.getDataCommon(), sendRequest.getRoutingCommon());
     }
@@ -95,9 +95,9 @@ public class TransferServiceImpl implements TransferService {
     @Override
     public JSONObject notifyTxStatus(NotifyRequest notifyRequest) {
 
-        QuorumInfo quorumInfo = (QuorumInfo) applicationContext.getBean("relayChainBuilder");
-        Status status = Status.load(RELAY_CONTRACT_ADDRESS, quorumInfo.getQuorum(), quorumInfo.getCredentials(), quorumInfo.getGasProvider());
-        log.info("[{}] contract address: {}", "relayChainBuilder", status.getContractAddress());
+//        QuorumInfo quorumInfo = (QuorumInfo) applicationContext.getBean("relayChainBuilder");
+//        Status status = Status.load(RELAY_CONTRACT_ADDRESS, quorumInfo.getQuorum(), quorumInfo.getCredentials(), quorumInfo.getGasProvider());
+//        log.info("[{}] contract address: {}", "relayChainBuilder", status.getContractAddress());
 
         // set src tx status to "prepare"
         JSONObject jsonObject = statusContractUtil.setTxStatus("relayChainBuilder", RELAY_CONTRACT_ADDRESS, notifyRequest.getChainName(), TxStatus.valueOf(notifyRequest.getTxStatus()));
@@ -107,7 +107,7 @@ public class TransferServiceImpl implements TransferService {
         webSocketBroadcast(msg);
 
         JSONObject res = new JSONObject();
-        jsonObject.put("msg", msg);
+        res.put("msg", msg);
         return res;
     }
 

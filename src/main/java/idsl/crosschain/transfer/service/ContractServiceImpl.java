@@ -43,7 +43,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public JSONObject setTxStatus(String chainName, String status) {
-        String chainBuilder = "quorumBuilder";
+        String chainBuilder = "relayChainBuilder";
         String contractAddress = RELAY_CONTRACT_ADDRESS;
         try {
             JSONObject jsonObject = chainBuilderSelector(chainName);
@@ -61,7 +61,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public JSONObject getTxStatus(String chainName) {
-        String chainBuilder = "quorumBuilder";
+        String chainBuilder = "relayChainBuilder";
         String contractAddress = RELAY_CONTRACT_ADDRESS;
         try {
             JSONObject jsonObject = chainBuilderSelector(chainName);
